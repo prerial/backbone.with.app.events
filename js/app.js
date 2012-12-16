@@ -8,7 +8,6 @@ define([
   'controllers/page/FooterController'
 ], function ($, _, Backbone, Config, NavController, HomeController, FooterController) {
 
-    var blnLoaded = false;
     var AppRouter = Backbone.Router.extend({
         routes: {
             '*actions': 'defaultAction'
@@ -18,25 +17,6 @@ define([
     var subscribeAllEvents = function (evtManager) {
         for (key in MG.Config.AppEvents) {
             evtManager.on(key, workflow);
-        }
-    };
-
-    var workflow = function () {
-        var arg = arguments[0];
-        if (!blnLoaded) { 
-             $('#msg').html('<b style="color:#999">Application Events fired:</b>');
-             blnLoaded = true;
-       }
-        switch (arg.type) {
-            case 'view1':
-                $('#msg').append(', ' + arg.type);
-                break;
-            case 'view2':
-                $('#msg').append(', ' + arg.type);
-                break;
-            case 'view3':
-                $('#msg').append(', ' + arg.type);
-                break;
         }
     };
 
@@ -64,7 +44,28 @@ define([
         Backbone.history.start();
 
     };
-    return {
+    
+    var blnLoaded = false;
+    var workflow = function () {
+        var arg = arguments[0];
+        if (!blnLoaded) { 
+             $('#msg').html('<b style="color:#999">Application Events fired:</b>');
+             blnLoaded = true;
+       }
+        switch (arg.type) {
+            case 'view1':
+                $('#msg').append(', ' + arg.type);
+                break;
+            case 'view2':
+                $('#msg').append(', ' + arg.type);
+                break;
+            case 'view3':
+                $('#msg').append(', ' + arg.type);
+                break;
+        }
+    };
+
+   return {
         initialize: initialize
     };
 });
